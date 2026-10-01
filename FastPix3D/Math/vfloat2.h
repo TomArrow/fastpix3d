@@ -58,7 +58,7 @@ struct FASTPIX3D_API vfloat2
 		float inverseLength = InverseLength;
 		return vfloat2(X * inverseLength, Y * inverseLength);
 	}
-	__forceinline float DotProduct(const vfloat2 &other) const
+	__forceinline float Dot(const vfloat2 &other) const
 	{
 		return X * other.X + Y * other.Y;
 	}

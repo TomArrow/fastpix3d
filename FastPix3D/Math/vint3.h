@@ -69,7 +69,7 @@ __declspec(align(16)) struct FASTPIX3D_API vint3
 	{
 	}
 
-	__forceinline int32 DotProduct(const vint3 &other) const
+	__forceinline int32 Dot(const vint3 &other) const
 	{
 		return X * other.X + Y * other.Y + Z * other.Z;
 	}

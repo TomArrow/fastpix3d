@@ -21,13 +21,13 @@ public:
 		}
 		else
 		{
-			bool isFrontFace = v1.DotProduct(v2.CrossProduct(v3)) < 0;
+			bool isFrontFace = v1.Dot(v2.CrossProduct(v3)) < 0;
 			return (cullMode == CullMode::Front) == isFrontFace;
 		}
 	}
 	__forceinline static bool IsTriangleCulled(CullMode cullMode, const vfloat3 &v1, const vfloat3 &v2, const vfloat3 &v3, bool &isFrontFace)
 	{
-		isFrontFace = v1.DotProduct(v2.CrossProduct(v3)) < 0;
+		isFrontFace = v1.Dot(v2.CrossProduct(v3)) < 0;
 		return cullMode != CullMode::None && (cullMode == CullMode::Front) == isFrontFace;
 	}
 	__forceinline static vfloat3 Project(const vfloat3 &position, const vfloat3 &scale)

@@ -72,7 +72,7 @@ __declspec(align(16)) struct FASTPIX3D_API vfloat3
 	{
 		return _mm_mul_ps(MM, _mm_rsqrt_ps(_mm_dp_ps(MM, MM, 0x77)));
 	}
-	__forceinline float DotProduct(const vfloat3 &other) const
+	__forceinline float Dot(const vfloat3 &other) const
 	{
 		return _mm_cvtss_f32(_mm_dp_ps(MM, other.MM, 0x71));
 	}

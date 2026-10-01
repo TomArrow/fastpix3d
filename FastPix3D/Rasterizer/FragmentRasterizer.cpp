@@ -100,17 +100,17 @@ bool FragmentRasterizer::DrawTriangle(const Vertex &_v1, const Vertex &_v2, cons
 					case LightType::Directional:
 					{
 						diffuse = vfloat3(
-							light.Precomputed.DirectionViewSpace.DotProduct(v1.Normals),
-							light.Precomputed.DirectionViewSpace.DotProduct(v2.Normals),
-							light.Precomputed.DirectionViewSpace.DotProduct(v3.Normals)
+							light.Precomputed.DirectionViewSpace.Dot(v1.Normals),
+							light.Precomputed.DirectionViewSpace.Dot(v2.Normals),
+							light.Precomputed.DirectionViewSpace.Dot(v3.Normals)
 						);
 
 						if (hasSpecular)
 						{
 							specular = VectorMath::Pow(VectorMath::Max(vfloat3(
-								v1.Normals.DotProduct((light.Precomputed.DirectionViewSpace - v1.Position.Normalize()).Normalize()),
-								v2.Normals.DotProduct((light.Precomputed.DirectionViewSpace - v2.Position.Normalize()).Normalize()),
-								v3.Normals.DotProduct((light.Precomputed.DirectionViewSpace - v3.Position.Normalize()).Normalize())
+								v1.Normals.Dot((light.Precomputed.DirectionViewSpace - v1.Position.Normalize()).Normalize()),
+								v2.Normals.Dot((light.Precomputed.DirectionViewSpace - v2.Position.Normalize()).Normalize()),
+								v3.Normals.Dot((light.Precomputed.DirectionViewSpace - v3.Position.Normalize()).Normalize())
 							), vfloat3()), RenderStates.SpecularExponent);
 						}
 
@@ -123,17 +123,17 @@ bool FragmentRasterizer::DrawTriangle(const Vertex &_v1, const Vertex &_v2, cons
 						vfloat3 distance3 = light.Precomputed.PositionViewSpace - v3.Position;
 
 						diffuse = vfloat3(
-							distance1.DotProduct(v1.Normals) * distance1.InverseSquaredLength,
-							distance2.DotProduct(v2.Normals) * distance2.InverseSquaredLength,
-							distance3.DotProduct(v3.Normals) * distance3.InverseSquaredLength
+							distance1.Dot(v1.Normals) * distance1.InverseSquaredLength,
+							distance2.Dot(v2.Normals) * distance2.InverseSquaredLength,
+							distance3.Dot(v3.Normals) * distance3.InverseSquaredLength
 						);
 
 						if (hasSpecular)
 						{
 							specular = VectorMath::Pow(VectorMath::Max(vfloat3(
-								v1.Normals.DotProduct((distance1.Normalize() - v1.Position.Normalize()).Normalize()),
-								v2.Normals.DotProduct((distance2.Normalize() - v2.Position.Normalize()).Normalize()),
-								v3.Normals.DotProduct((distance3.Normalize() - v3.Position.Normalize()).Normalize())
+								v1.Normals.Dot((distance1.Normalize() - v1.Position.Normalize()).Normalize()),
+								v2.Normals.Dot((distance2.Normalize() - v2.Position.Normalize()).Normalize()),
+								v3.Normals.Dot((distance3.Normalize() - v3.Position.Normalize()).Normalize())
 							), vfloat3()), RenderStates.SpecularExponent);
 						}
 
@@ -150,23 +150,23 @@ bool FragmentRasterizer::DrawTriangle(const Vertex &_v1, const Vertex &_v2, cons
 						vfloat3 direction3 = distance3.Normalize();
 
 						vfloat3 cone = VectorMath::Max((vfloat3(
-							direction1.DotProduct(light.Precomputed.DirectionViewSpace),
-							direction2.DotProduct(light.Precomputed.DirectionViewSpace),
-							direction3.DotProduct(light.Precomputed.DirectionViewSpace)
+							direction1.Dot(light.Precomputed.DirectionViewSpace),
+							direction2.Dot(light.Precomputed.DirectionViewSpace),
+							direction3.Dot(light.Precomputed.DirectionViewSpace)
 						) - light.Precomputed.ConeAngleCos) * light.Precomputed.ConeAngleScale, vfloat3());
 
 						diffuse = vfloat3(
-							distance1.DotProduct(v1.Normals) * distance1.InverseSquaredLength,
-							distance2.DotProduct(v2.Normals) * distance2.InverseSquaredLength,
-							distance3.DotProduct(v3.Normals) * distance3.InverseSquaredLength
+							distance1.Dot(v1.Normals) * distance1.InverseSquaredLength,
+							distance2.Dot(v2.Normals) * distance2.InverseSquaredLength,
+							distance3.Dot(v3.Normals) * distance3.InverseSquaredLength
 						) * cone;
 
 						if (hasSpecular)
 						{
 							specular = VectorMath::Pow(VectorMath::Max(vfloat3(
-								v1.Normals.DotProduct((direction1 - v1.Position.Normalize()).Normalize()),
-								v2.Normals.DotProduct((direction2 - v2.Position.Normalize()).Normalize()),
-								v3.Normals.DotProduct((direction3 - v3.Position.Normalize()).Normalize())
+								v1.Normals.Dot((direction1 - v1.Position.Normalize()).Normalize()),
+								v2.Normals.Dot((direction2 - v2.Position.Normalize()).Normalize()),
+								v3.Normals.Dot((direction3 - v3.Position.Normalize()).Normalize())
 							), vfloat3()), RenderStates.SpecularExponent) * cone;
 						}
 

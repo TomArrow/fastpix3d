@@ -55,7 +55,7 @@ struct FASTPIX3D_API vint2
 	{
 	}
 
-	__forceinline int32 DotProduct(const vint2 &other) const
+	__forceinline int32 Dot(const vint2 &other) const
 	{
 		return X * other.X + Y * other.Y;
 	}
