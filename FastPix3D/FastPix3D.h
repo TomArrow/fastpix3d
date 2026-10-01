@@ -2,6 +2,10 @@
 #define _CRT_SECURE_NO_WARNINGS
 #define _USE_MATH_DEFINES
 
+// make it play nice with VS2019 v142
+typedef struct IUnknown IUnknown;
+#define __rsqrt_ss(a) _mm_cvtss_f32(_mm_rsqrt_ss(_mm_set_ss((a))))
+
 #pragma comment(lib, "user32.lib")
 #pragma comment(lib, "shlwapi.lib")
 #pragma comment(lib, "gdi32.lib")
